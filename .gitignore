@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+#Environnements
+.venv
+venv/
+
+#Files
+notes_rh.md
+notes_chef_de_service.py
+infos_briefs.txt
