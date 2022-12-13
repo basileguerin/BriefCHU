@@ -10,6 +10,7 @@ df_patient = Patient.affiche_patients(CONFIG)
 df_rh = RH.affiche_rh(CONFIG)
 df_archive = Archive.afficher_les_archives_streamlit(CONFIG)
 
+st.set_page_config(layout='wide', page_title='CHU_APP', page_icon=':hospital')
 st.title('App CHU_Caen')
 col1, col2,= st.columns(2)
 
