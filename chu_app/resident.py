@@ -31,18 +31,18 @@ class Patient:
         cursor.execute(query)
         bdd.commit()
         cursor.close()
-  
-    def sortir_de_l_hopital(self, config):
+    
+    @staticmethod
+    def sortir_de_l_hopital(id_patient, config):
         """Supprime le patient de la BDD et ajoute une date de sortie à l'archive"""
 
         bdd = mysqlpy.connect(**config)
         cursor = bdd.cursor()
-        self.is_in_hospital = False
         date_sortie = str(datetime.date.today())
         query = f"""UPDATE archives SET date_sortie = '{date_sortie}'
-        WHERE id_resident = '{self.id_patient}'"""
+        WHERE id_resident = '{id_patient}'"""
         cursor.execute(query)
-        query = f"""DELETE FROM patients WHERE id = '{self.id_patient}'"""
+        query = f"""DELETE FROM patients WHERE id = '{id_patient}'"""
         cursor.execute(query)
         bdd.commit()
         cursor.close()
@@ -61,6 +61,19 @@ class Patient:
         cursor.close()
         bdd.close()
         return pd.DataFrame(data=infos, columns=['id', 'nom', 'prenom', 'groupe_sanguin', 'is_in_hospital'])
+
+    @staticmethod
+    def vider_bdd(config):
+        """Vide toutes les tables de la BDD"""
+
+        bdd = mysqlpy.connect(**config)
+        cursor = bdd.cursor()
+        query = """TRUNCATE TABLE CHU_Caen.rh;
+                TRUNCATE TABLE CHU_Caen.patients;
+                TRUNCATE TABLE CHU_Caen.archives;"""
+        cursor.execute(query)
+        cursor.close()
+        bdd.close()
             
 
 class RH:
@@ -89,17 +102,17 @@ class RH:
         bdd.commit()
         cursor.close()
 
-    def quitter_CDD_CDI(self, config):
+    @staticmethod
+    def quitter_CDD_CDI(id_rh, config):
         """Supprime le RH de la table rh et ajoute une date de sortie à l'archive"""
 
         bdd = mysqlpy.connect(**config)
         cursor = bdd.cursor()
-        self.working_at_hospital = False
         date_fin_contrat = str(datetime.date.today())
         query = f"""UPDATE archives SET date_sortie = '{date_fin_contrat}'
-        WHERE id_resident = '{self.id_rh}'"""
+        WHERE id_resident = '{id_rh}'"""
         cursor.execute(query)
-        query = f"""DELETE FROM rh WHERE id = '{self.id_rh}'"""
+        query = f"""DELETE FROM rh WHERE id = '{id_rh}'"""
         cursor.execute(query)
         bdd.commit()
         cursor.close()

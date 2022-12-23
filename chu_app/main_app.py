@@ -60,26 +60,19 @@ with col3:
     st.subheader('Patients')
     with st.form('gone_patient', clear_on_submit=True):
         st.subheader("Quel patient sort de l'hopital ? ")
-        nom = st.text_input('Nom de patient :')
-        prenom = st.text_input('Prenom du patient :')
-        groupe_sanguin = st.radio('Groupe sanguin :', ('A', 'B', 'O', 'AB'))
-        date_entree = str(st.date_input("Date d'entrée"))
+        id_patient = st.text_input('ID Patient :')
         submitted = st.form_submit_button('Supprimer')
         if submitted:
-            gone_patient = Patient(nom, prenom, groupe_sanguin, date_entree)
-            gone_patient.sortir_de_l_hopital(CONFIG)
+            Patient.sortir_de_l_hopital(id_patient, CONFIG)
 
 with col4:
     st.subheader('RH')
     with st.form('gone_rh', clear_on_submit=True):
         st.subheader('Quel RH a finit son contrat ? ')
-        nom = st.text_input('Nom RH :')
-        prenom = st.text_input('Prenom RH :')
-        salaire = st.number_input('Salaire annuel :', min_value=0, max_value=100000, step=1)
-        date_recrutement = str(st.date_input('Date de recrutement'))
+        id_rh = st.text_input('ID RH :')
         submitted = st.form_submit_button('Supprimer')
         if submitted:
-            new_rh = RH(nom, prenom, salaire, date_recrutement)
-            new_rh.quitter_CDD_CDI(CONFIG)
+            RH.quitter_CDD_CDI(id_rh, CONFIG)
 
-
+if st.button('VIDER LA BASE DE DONNEES'):
+    Patient.vider_bdd(CONFIG)
