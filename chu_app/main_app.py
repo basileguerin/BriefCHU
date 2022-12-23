@@ -74,5 +74,5 @@ with col4:
         if submitted:
             RH.quitter_CDD_CDI(id_rh, CONFIG)
 
-if st.button('VIDER LA BASE DE DONNEES'):
+if st.button('⚠️VIDER LA BASE DE DONNEES⚠️'):
     Patient.vider_bdd(CONFIG)
