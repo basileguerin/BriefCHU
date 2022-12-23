@@ -10,6 +10,7 @@ def fill_with_fake(nombre_residents):
     CONFIG = get_db_config()
 
     for i in range(nombre_residents):
+        print(f"{i}/{nombre_residents}")
         categorie = random.randint(0,1) #Si 0 -> Patient sinon RH
 
         if categorie == 0:
@@ -28,3 +29,4 @@ def fill_with_fake(nombre_residents):
             date_recrutement = str(datetime.date.today())
             new_rh = RH(nom_rh, prenom_rh, salaire, date_recrutement) #Nouvelle instance RH
             new_rh.debuter_CDD_CDI(CONFIG) #Ajout à la BDD
+
